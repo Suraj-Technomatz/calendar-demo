@@ -21,8 +21,6 @@ class App extends Component {
 
   render() {
     const { facilities, programs, Events} = this.state.data;
-
-    console.log("============ state ========>>>>>>>", this.state.data)
     return (
       <Container fluid>
         <div className="main_container">
@@ -34,7 +32,7 @@ class App extends Component {
             </Col>
             <Col md={8}>
               <div className="calendar_views">
-                <CalendarView />
+                <CalendarView facilities={facilities}  Events={Events}/>
               </div>
             </Col>
           </Row>
