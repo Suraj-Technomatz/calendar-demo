@@ -25,12 +25,12 @@ class App extends Component {
       <Container fluid>
         <div className="main_container">
           <Row>
-            <Col md={4}>
+            <Col md={2}>
               <div className="programs_views">
                 <ProgramList programs={programs} />
               </div>
             </Col>
-            <Col md={8}>
+            <Col md={10}>
               <div className="calendar_views">
                 <CalendarView facilities={facilities}  Events={Events}/>
               </div>

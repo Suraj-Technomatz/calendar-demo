@@ -14,6 +14,10 @@
 }
 
 .calendar_views {
-  background-color: #777;
+  /* background-color: #777; */
   padding: 20px;
+}
+
+.time_slot {
+  min-height: 30px;
 }
