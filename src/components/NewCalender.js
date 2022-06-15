@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import map from "lodash/map";
-import find from "lodash/find";
+import filter from "lodash/filter";
 import { getTimeSlots } from "../helpers";
 
 const CalendarView = ({ facilities, Events, setEvent }) => {
@@ -30,6 +30,9 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
   };
 
   const onDragEvent = (ev, event) => {
+    if (event.onCalendar) {
+      return
+    }
     ev.dataTransfer.setData("eventId", event.eventId);
   };
 
@@ -52,25 +55,36 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
   };
 
   const getSlot = (time, resourceID) => {
-    const event = find(Events, { resource_id: resourceID });
-    if (event) {
-      const eventStartTime = event.start_time.split(":")[0];
-      if (time.startTime.split(":")[0] === eventStartTime) {
-        return (
-          <div
-            draggable
-            onDragStart={(e) => {
-              onDragEvent(e, event);
-            }}
-          >
-            <div className="calendar_event">
-              <div>Name: {event.resource_name}</div>
-              <div>Start: {event.start_time}</div>
+    const events = filter(Events, { resource_id: resourceID });
+
+    return (
+    <>
+    {events && events.map((event) => {
+        const eventStartTime = event.start_time.split(":")[0];
+
+        const slotStartTime = time.startTime.split(":")[0];
+        const eventAA = event.start_time.split(" ")[1];
+        const slotAA = time.startTime.split(" ")[1];
+
+        if ((`${slotStartTime} ${slotAA}` === `${eventStartTime} ${eventAA}`)) {
+        // if (time.startTime === event.start_time) {
+          return (
+            <div
+              key={event.id}
+              draggable
+              onDragStart={(e) => {
+                onDragEvent(e, event);
+              }}
+            >
+              <div className={event.onCalendar ? "calendar_event black": "calendar_event"}>
+                <div>Name: {event.resource_name}</div>
+                <div>Start: {time.startTime}</div>
+              </div>
             </div>
-          </div>
-        );
-      }
-    }
+          );
+        }
+      })}
+    </>)
   };
 
   console.log("============= Events ===========", Events);

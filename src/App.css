@@ -65,3 +65,14 @@ span.time_slot_name {
   left: -70px;
 }
 
+.calendar_event {
+  background: #36d136;
+  border-radius: 10px;
+  color: #fff;
+  padding-left: 12px;
+}
+
+.calendar_event.black {
+  background: #000;
+  color: #000;
+}
