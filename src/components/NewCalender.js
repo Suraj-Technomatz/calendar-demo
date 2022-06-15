@@ -5,9 +5,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import map from "lodash/map";
 import find from "lodash/find";
-import { getTimeSlots } from "../../helpers";
+import { getTimeSlots } from "../helpers";
 
-const CalendarView = ({ facilities, Events }) => {
+const CalendarView = ({ facilities, Events, setEvent }) => {
   const [resourceSize] = useState([
     "A",
     "B",
@@ -29,18 +29,45 @@ const CalendarView = ({ facilities, Events }) => {
     return tempArray;
   };
 
+  const onDragEvent = (ev, event) => {
+    ev.dataTransfer.setData("eventId", event.eventId);
+  };
+
+  const onDragOver = (ev) => {
+    ev.preventDefault();
+  };
+
+  const onDrop = (ev, slot, resource) => {
+    const id = ev.dataTransfer.getData("eventId");
+    const updatedEvents = Events.map((event) => {
+      if (event.eventId === parseInt(id)) {
+        event.start_time = slot.startTime;
+        event.end_time = slot.endTime;
+        event.resource_id = resource.id;
+      }
+      return event;
+    });
+
+    setEvent(updatedEvents);
+  };
+
   const getSlot = (time, resourceID) => {
     const event = find(Events, { resource_id: resourceID });
     if (event) {
       const eventStartTime = event.start_time.split(":")[0];
       if (time.startTime.split(":")[0] === eventStartTime) {
         return (
-          <Draggable>
+          <div
+            draggable
+            onDragStart={(e) => {
+              onDragEvent(e, event);
+            }}
+          >
             <div className="calendar_event">
               <div>Name: {event.resource_name}</div>
               <div>Start: {event.start_time}</div>
             </div>
-          </Draggable>
+          </div>
         );
       }
     }
@@ -88,7 +115,11 @@ const CalendarView = ({ facilities, Events }) => {
                   <span className="time_slot_name">{timeSlot.short}</span>
                   {map(facility.resource_names, (resourceName) => {
                     return (
-                      <Col className="border">
+                      <Col
+                        onDragOver={(e) => onDragOver(e)}
+                        onDrop={(e) => onDrop(e, timeSlot, resourceName)}
+                        className="border"
+                      >
                         {getSlot(timeSlot, resourceName.id)}
                         <Row>
                           {map(

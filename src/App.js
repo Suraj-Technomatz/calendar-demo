@@ -7,7 +7,7 @@ import Draggable from "react-draggable";
 // Getting data from files
 import ApiData from "./data";
 import ProgramList from "./components/ProgramList";
-import CalendarView from "./components/Calendar";
+import CalendarView from "./components/NewCalender";
 
 import "./App.css";
 
@@ -17,8 +17,13 @@ class App extends Component {
 
     this.state = {
       data: ApiData,
+      Events: ApiData.Events,
     };
   }
+
+  setEvent = (updatedEvents) => {
+    this.setState({ Events: updatedEvents });
+  };
 
   render() {
     const { facilities, programs, Events } = this.state.data;
@@ -33,7 +38,11 @@ class App extends Component {
             </Col>
             <Col md={10} className="right_panel">
               <div className="calendar_views">
-                <CalendarView facilities={facilities} Events={Events} />
+                <CalendarView
+                  facilities={facilities}
+                  Events={Events}
+                  setEvent={this.setEvent}
+                />
               </div>
             </Col>
           </Row>
