@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import Draggable from "react-draggable";
-import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import map from "lodash/map";
 import filter from "lodash/filter";
+import find from "lodash/find";
 import { getTimeSlots } from "../helpers";
 
 const CalendarView = ({ facilities, Events, setEvent }) => {
@@ -19,15 +18,6 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
     "H",
     "I",
   ]);
-
-  const renderCells = (numberOfCells) => {
-    let tempArray = [];
-    for (let i = 0; i < numberOfCells; i++) {
-      tempArray.push(i);
-    }
-
-    return tempArray;
-  };
 
   const onDragEvent = (ev, event) => {
     if (event.onCalendar) {
@@ -54,7 +44,7 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
     setEvent(updatedEvents);
   };
 
-  const getSlot = (time, resourceID) => {
+  const getSlot = (time, resourceID, facility) => {
     const events = filter(Events, { resource_id: resourceID });
 
     return (
@@ -66,8 +56,12 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
         const eventAA = event.start_time.split(" ")[1];
         const slotAA = time.startTime.split(" ")[1];
 
+
+        const parentOfEvent = find(facility.resource_names, {id: resourceID});
         if ((`${slotStartTime} ${slotAA}` === `${eventStartTime} ${eventAA}`)) {
-        // if (time.startTime === event.start_time) {
+          const style = {
+            width:  (100 / parentOfEvent.resource_size_count) * event.subresource  + '%',
+        };
           return (
             <div
               key={event.id}
@@ -75,8 +69,12 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
               onDragStart={(e) => {
                 onDragEvent(e, event);
               }}
+              // className={classNames({""})}
+              style={style}
             >
-              <div className={event.onCalendar ? "calendar_event black": "calendar_event"}>
+              <div className={
+                event.onCalendar ? "calendar_event black": "calendar_event"
+              }>
                 <div>Name: {event.resource_name}</div>
                 <div>Start: {time.startTime}</div>
               </div>
@@ -87,8 +85,6 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
     </>)
   };
 
-  console.log("============= Events ===========", Events);
-  console.log("============= facilities ===========", facilities);
   return (
     <>
       {map(facilities, (facility) => {
@@ -134,7 +130,7 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
                         onDrop={(e) => onDrop(e, timeSlot, resourceName)}
                         className="border"
                       >
-                        {getSlot(timeSlot, resourceName.id)}
+                        {getSlot(timeSlot, resourceName.id, facility)}
                         <Row>
                           {map(
                             resourceSize.slice(
@@ -159,5 +155,4 @@ const CalendarView = ({ facilities, Events, setEvent }) => {
   );
 };
 
-CalendarView.propTypes = {};
 export default CalendarView;

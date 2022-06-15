@@ -12,6 +12,7 @@ const ProgramList = ({ programs }) => {
           <>
             <h6>
               {program.name}
+            </h6>
               {map(program?.divisions, (division) => {
                 return (
                   <>
@@ -21,7 +22,11 @@ const ProgramList = ({ programs }) => {
                         data-bs-toggle="collapse"
                         data-bs-target={`#${division.name}`}
                       >
-                        {division.name}{" "}
+                        <div>
+                            <input type="checkbox"  className="custom_checkbox mr-5" />
+                            <span>{division.name}</span>
+                        </div>
+                        <BsFillCheckCircleFill className="text-align-right"/>
                       </div>
                       <ul
                         className="division_events collapse"
@@ -40,7 +45,6 @@ const ProgramList = ({ programs }) => {
                   </>
                 );
               })}
-            </h6>
           </>
         );
       })}

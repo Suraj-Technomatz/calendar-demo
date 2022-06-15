@@ -19,7 +19,7 @@
 }
 
 .right_panel {
-  padding-left: 80px;
+  padding-left: 80px !important;
 }
 
 .calender_heading {
@@ -60,6 +60,11 @@
   background: #eeeaea82;
   padding: 10px;
   border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 span.time_slot_name {
@@ -83,4 +88,9 @@ span.time_slot_name {
 .text-align-right {
   text-align: right;
   color: green;
+  font-size: 20px;
+}
+
+.custom_checkbox.mr-5 {
+  margin-right: 6px;
 }
