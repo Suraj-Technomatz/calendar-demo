@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Draggable from 'react-draggable';
 import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -52,7 +53,14 @@ const CalendarView = ({ facilities, Events }) => {
     if (event) {
       const eventStartTime = event.start_time.split(":")[0];
       if (time.full.split(":")[0] === eventStartTime) {
-        return <span>Hi</span>
+        return (
+          <Draggable>
+          <div className="calendar_event">
+            <div>Name: {event.resource_name}</div>
+            <div>Start: {event.start_time}</div>
+          </div>
+        </Draggable>
+        )
       }
     }
   }
