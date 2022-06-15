@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Draggable from "react-draggable";
 
 // Getting data from files
 import ApiData from "./data";
@@ -20,7 +21,7 @@ class App extends Component {
   }
 
   render() {
-    const { facilities, programs, Events} = this.state.data;
+    const { facilities, programs, Events } = this.state.data;
     return (
       <Container fluid>
         <div className="main_container">
@@ -32,7 +33,7 @@ class App extends Component {
             </Col>
             <Col md={10}>
               <div className="calendar_views">
-                <CalendarView facilities={facilities}  Events={Events}/>
+                <CalendarView facilities={facilities} Events={Events} />
               </div>
             </Col>
           </Row>

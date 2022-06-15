@@ -9,7 +9,7 @@
 }
 
 .programs_views {
-  background-color: #d5cccc;
+  /* background-color: #d5cccc;  */
   padding: 20px;
 }
 
@@ -20,4 +20,8 @@
 
 .time_slot {
   min-height: 30px;
+}
+
+.side_nav_collapse[aria-expanded="true"] {
+  border: 1px solid red !important;
 }
