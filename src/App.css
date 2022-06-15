@@ -18,10 +18,50 @@
   padding: 20px;
 }
 
+.right_panel {
+  padding-left: 80px;
+}
+
+.calender_heading {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
 .time_slot {
-  min-height: 30px;
+  min-height: 60px;
+  position: relative;
 }
 
 .side_nav_collapse[aria-expanded="true"] {
-  border: 1px solid red !important;
+  border: 1px solid #4ace54 !important;
 }
+
+.division_events {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.division_events li {
+  background: #eeeaea82;
+  padding: 5px;
+  border-radius: 10px;
+  padding-left: 15px;
+}
+
+.side_nav_collapse {
+  margin-top: 20px;
+  background: #eeeaea82;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+span.time_slot_name {
+  position: absolute;
+  top: -12px;
+  left: -70px;
+}
+

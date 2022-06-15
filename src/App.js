@@ -31,7 +31,7 @@ class App extends Component {
                 <ProgramList programs={programs} />
               </div>
             </Col>
-            <Col md={10}>
+            <Col md={10} className="right_panel">
               <div className="calendar_views">
                 <CalendarView facilities={facilities} Events={Events} />
               </div>
