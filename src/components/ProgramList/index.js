@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import map from "lodash/map";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 const ProgramList = ({ programs }) => {
   console.log("=========== programs ========>>>", programs);
@@ -27,7 +28,12 @@ const ProgramList = ({ programs }) => {
                         id={division.name}
                       >
                         {map(division.events, (event) => {
-                          return <li>{event.resource_name}</li>;
+                          return (
+                            <li>
+                                <span>{event.resource_name}</span>
+                                <BsFillCheckCircleFill className="text-align-right"/>
+                            </li>
+                          );
                         })}
                       </ul>
                     </div>

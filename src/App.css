@@ -50,6 +50,9 @@
   padding: 5px;
   border-radius: 10px;
   padding-left: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .side_nav_collapse {
@@ -75,4 +78,9 @@ span.time_slot_name {
 .calendar_event.black {
   background: #000;
   color: #000;
+}
+
+.text-align-right {
+  text-align: right;
+  color: green;
 }
